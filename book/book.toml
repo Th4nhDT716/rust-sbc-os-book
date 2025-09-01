@@ -1,0 +1,12 @@
+[book]
+language = "en"
+src = "src"
+title = "Writing a Rust OS for a Single Board Computer"
+
+[build]
+build-dir = "target"
+
+[output.html]
+git-repository-url = "https://github.com/matej-almasi/rust-sbc-os-bookmd"
+
+[output.linkcheck]
