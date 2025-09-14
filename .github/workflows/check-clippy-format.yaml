@@ -1,0 +1,86 @@
+name: Cargo Check, Clippy and Format Check
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths: &changed_paths
+      - "ferros/src"
+      - "ferros/Cargo*"
+      - "ferros/.cargo"
+      - ".github/workflows/check-clippy-format.yml"
+      - "ferros/kernel.ld"
+      - "ferros/build.rs"
+
+  push:
+    branches:
+      - main
+    paths: *changed_paths
+
+env:
+  CARGO_TERM_COLOR: always
+
+defaults:
+  run:
+    working-directory: ./ferros
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-unknown-none-softfloat
+      
+      - uses: actions/cache@v4
+        with:
+          path: &cargo_cache_dirs |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            **/target/
+          key: ${{ runner.os }}-cargo-${{ steps.toolchain.outputs.cachekey }}
+      
+      - name: Check
+        run: cargo check --all-targets
+
+  format:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: rustfmt
+      
+      - uses: actions/cache@v4
+        with:
+          path: *cargo_cache_dirs
+          key: ${{ runner.os }}-cargo-${{ steps.toolchain.outputs.cachekey }}
+
+      - name: Format
+        run: cargo +nightly fmt --check
+
+  clippy:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-unknown-none-softfloat
+          components: clippy
+      
+      - uses: actions/cache@v4
+        with:
+          path: *cargo_cache_dirs
+          key: ${{ runner.os }}-cargo-${{ steps.toolchain.outputs.cachekey }}
+
+      - name: Clippy
+        run: cargo clippy --all-targets -- -D warnings

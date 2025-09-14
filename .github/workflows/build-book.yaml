@@ -1,0 +1,52 @@
+name: build-book
+
+on:
+  workflow_call:
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "book/**"
+      - ".github/workflows/build-book.yaml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5.0.0
+      
+      - uses: dtolnay/rust-toolchain@stable
+        id: toolchain
+      
+      - name: Cache cargo and project deps
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            **/target/
+          key: ${{ runner.os }}-cargo-${{ steps.toolchain.outputs.cachekey }}
+          
+      - name: Install mdBook
+        run: which mdbook || cargo install mdbook --no-default-features --features search --vers "^0.4" --locked
+          
+      - name: Install linkcheck
+        run: which mdbook-linkcheck || cargo install mdbook-linkcheck --vers "^0.7.7" --locked
+      
+      - name: Build the Book
+        run: mdbook build book
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          name: github-pages
+          path: ./book/target/html
