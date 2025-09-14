@@ -3,9 +3,10 @@ name = "ferros"
 version = "0.1.0"
 edition = "2024"
 
-[dependencies]
-
 [[bin]]
 name = "ferros"
 test = false
 bench = false
+
+[dependencies]
+aarch64-cpu = "10.0.0"
