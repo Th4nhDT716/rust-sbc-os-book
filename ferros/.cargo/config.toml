@@ -1,0 +1,10 @@
+[build]
+target = ["aarch64-unknown-none-softfloat"]
+
+[target.aarch64-unknown-none-softfloat]
+runner = """\
+  qemu-system-aarch64 -machine raspi4b \
+                      -d in_asm \
+                      -display none \
+                      -kernel
+"""
